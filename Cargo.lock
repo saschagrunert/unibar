@@ -288,7 +288,7 @@ dependencies = [
  "gfx-hal 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "glsl-to-spirv 0.1.7 (registry+https://github.com/rust-lang/crates.io-index)",
  "log 0.4.6 (registry+https://github.com/rust-lang/crates.io-index)",
- "wayland-client 0.21.7 (registry+https://github.com/rust-lang/crates.io-index)",
+ "wayland-client 0.21.10 (registry+https://github.com/rust-lang/crates.io-index)",
  "winit 0.18.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -386,7 +386,7 @@ dependencies = [
  "objc 0.2.5 (registry+https://github.com/rust-lang/crates.io-index)",
  "osmesa-sys 0.1.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "shared_library 0.1.9 (registry+https://github.com/rust-lang/crates.io-index)",
- "wayland-client 0.21.7 (registry+https://github.com/rust-lang/crates.io-index)",
+ "wayland-client 0.21.10 (registry+https://github.com/rust-lang/crates.io-index)",
  "winapi 0.3.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "winit 0.18.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "x11-dl 2.18.3 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -479,18 +479,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "libc 0.2.46 (registry+https://github.com/rust-lang/crates.io-index)",
  "winapi 0.3.6 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
-[[package]]
-name = "nix"
-version = "0.11.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-dependencies = [
- "bitflags 1.0.4 (registry+https://github.com/rust-lang/crates.io-index)",
- "cc 1.0.28 (registry+https://github.com/rust-lang/crates.io-index)",
- "cfg-if 0.1.6 (registry+https://github.com/rust-lang/crates.io-index)",
- "libc 0.2.46 (registry+https://github.com/rust-lang/crates.io-index)",
- "void 1.0.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -826,8 +814,8 @@ dependencies = [
  "memmap 0.7.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "nix 0.12.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "rand 0.6.3 (registry+https://github.com/rust-lang/crates.io-index)",
- "wayland-client 0.21.7 (registry+https://github.com/rust-lang/crates.io-index)",
- "wayland-commons 0.21.9 (registry+https://github.com/rust-lang/crates.io-index)",
+ "wayland-client 0.21.10 (registry+https://github.com/rust-lang/crates.io-index)",
+ "wayland-commons 0.21.10 (registry+https://github.com/rust-lang/crates.io-index)",
  "wayland-protocols 0.21.7 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -962,25 +950,25 @@ dependencies = [
 
 [[package]]
 name = "wayland-client"
-version = "0.21.7"
+version = "0.21.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "bitflags 1.0.4 (registry+https://github.com/rust-lang/crates.io-index)",
  "downcast-rs 1.0.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "libc 0.2.46 (registry+https://github.com/rust-lang/crates.io-index)",
- "nix 0.11.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "wayland-commons 0.21.9 (registry+https://github.com/rust-lang/crates.io-index)",
- "wayland-scanner 0.21.9 (registry+https://github.com/rust-lang/crates.io-index)",
- "wayland-sys 0.21.9 (registry+https://github.com/rust-lang/crates.io-index)",
+ "nix 0.12.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "wayland-commons 0.21.10 (registry+https://github.com/rust-lang/crates.io-index)",
+ "wayland-scanner 0.21.10 (registry+https://github.com/rust-lang/crates.io-index)",
+ "wayland-sys 0.21.10 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "wayland-commons"
-version = "0.21.9"
+version = "0.21.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "nix 0.12.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "wayland-sys 0.21.9 (registry+https://github.com/rust-lang/crates.io-index)",
+ "wayland-sys 0.21.10 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -989,15 +977,15 @@ version = "0.21.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "bitflags 1.0.4 (registry+https://github.com/rust-lang/crates.io-index)",
- "wayland-client 0.21.7 (registry+https://github.com/rust-lang/crates.io-index)",
- "wayland-commons 0.21.9 (registry+https://github.com/rust-lang/crates.io-index)",
- "wayland-scanner 0.21.9 (registry+https://github.com/rust-lang/crates.io-index)",
- "wayland-sys 0.21.9 (registry+https://github.com/rust-lang/crates.io-index)",
+ "wayland-client 0.21.10 (registry+https://github.com/rust-lang/crates.io-index)",
+ "wayland-commons 0.21.10 (registry+https://github.com/rust-lang/crates.io-index)",
+ "wayland-scanner 0.21.10 (registry+https://github.com/rust-lang/crates.io-index)",
+ "wayland-sys 0.21.10 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "wayland-scanner"
-version = "0.21.9"
+version = "0.21.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "xml-rs 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -1005,7 +993,7 @@ dependencies = [
 
 [[package]]
 name = "wayland-sys"
-version = "0.21.9"
+version = "0.21.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "dlib 0.4.1 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -1064,7 +1052,7 @@ dependencies = [
  "parking_lot 0.6.4 (registry+https://github.com/rust-lang/crates.io-index)",
  "percent-encoding 1.0.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "smithay-client-toolkit 0.4.4 (registry+https://github.com/rust-lang/crates.io-index)",
- "wayland-client 0.21.7 (registry+https://github.com/rust-lang/crates.io-index)",
+ "wayland-client 0.21.10 (registry+https://github.com/rust-lang/crates.io-index)",
  "winapi 0.3.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "x11-dl 2.18.3 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -1155,7 +1143,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum malloc_buf 0.0.6 (registry+https://github.com/rust-lang/crates.io-index)" = "62bb907fe88d54d8d9ce32a3cceab4218ed2f6b7d35617cafe9adf84e43919cb"
 "checksum memchr 2.1.2 (registry+https://github.com/rust-lang/crates.io-index)" = "db4c41318937f6e76648f42826b1d9ade5c09cafb5aef7e351240a70f39206e9"
 "checksum memmap 0.7.0 (registry+https://github.com/rust-lang/crates.io-index)" = "6585fd95e7bb50d6cc31e20d4cf9afb4e2ba16c5846fc76793f11218da9c475b"
-"checksum nix 0.11.0 (registry+https://github.com/rust-lang/crates.io-index)" = "d37e713a259ff641624b6cb20e3b12b2952313ba36b6823c0f16e6cfd9e5de17"
 "checksum nix 0.12.0 (registry+https://github.com/rust-lang/crates.io-index)" = "921f61dc817b379d0834e45d5ec45beaacfae97082090a49c2cf30dcbc30206f"
 "checksum nodrop 0.1.13 (registry+https://github.com/rust-lang/crates.io-index)" = "2f9667ddcc6cc8a43afc9b7917599d7216aa09c463919ea32c59ed6cac8bc945"
 "checksum num-traits 0.2.6 (registry+https://github.com/rust-lang/crates.io-index)" = "0b3a5d7cc97d6d30d8b9bc8fa19bf45349ffe46241e8816f50f62f6d6aaabee1"
@@ -1213,11 +1200,11 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum version_check 0.1.5 (registry+https://github.com/rust-lang/crates.io-index)" = "914b1a6776c4c929a602fafd8bc742e06365d4bcbe48c30f9cca5824f70dc9dd"
 "checksum void 1.0.2 (registry+https://github.com/rust-lang/crates.io-index)" = "6a02e4885ed3bc0f2de90ea6dd45ebcbb66dacffe03547fadbb0eeae2770887d"
 "checksum walkdir 2.2.7 (registry+https://github.com/rust-lang/crates.io-index)" = "9d9d7ed3431229a144296213105a390676cc49c9b6a72bd19f3176c98e129fa1"
-"checksum wayland-client 0.21.7 (registry+https://github.com/rust-lang/crates.io-index)" = "267d642a6e551e5af62a5e4fbfaab299221e6ddbd453b5985cfa84c835887679"
-"checksum wayland-commons 0.21.9 (registry+https://github.com/rust-lang/crates.io-index)" = "6d8dc110b7f9dfa6b4f978b663cda29dea088a82327601d8e25ae836652be511"
+"checksum wayland-client 0.21.10 (registry+https://github.com/rust-lang/crates.io-index)" = "cb4e519a7a979ddf97ee25c07830bd10b2c466b3b904b8ad4a05b4eee58c1a4e"
+"checksum wayland-commons 0.21.10 (registry+https://github.com/rust-lang/crates.io-index)" = "d985937818df10af90fe61bf8fc520fc6179539d972378b78be773694bb9f432"
 "checksum wayland-protocols 0.21.7 (registry+https://github.com/rust-lang/crates.io-index)" = "a1d20e951995113cdb8f32578c8402e619aa3d3e894f3ca334deb219abc1f6df"
-"checksum wayland-scanner 0.21.9 (registry+https://github.com/rust-lang/crates.io-index)" = "48c38bf483454ee8f05090eac833edf689426af76187a70eefce6b445ecabb07"
-"checksum wayland-sys 0.21.9 (registry+https://github.com/rust-lang/crates.io-index)" = "a06e7a4cc1b8a5d94aec988699eda57f49dc41df0745590dde646f6fc0cd1020"
+"checksum wayland-scanner 0.21.10 (registry+https://github.com/rust-lang/crates.io-index)" = "1c8b867a824057b856790776e7cee37daf0435fc06543f2d96b2e37d15322e99"
+"checksum wayland-sys 0.21.10 (registry+https://github.com/rust-lang/crates.io-index)" = "6807f24ccb5b1a76a854fbd18160ae11cea64717b2f643d10810e5ef7fba2f59"
 "checksum winapi 0.3.6 (registry+https://github.com/rust-lang/crates.io-index)" = "92c1eb33641e276cfa214a0522acad57be5c56b10cb348b3c5117db75f3ac4b0"
 "checksum winapi-i686-pc-windows-gnu 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)" = "ac3b87c63620426dd9b991e5ce0329eff545bccbbb34f3be09ff6fb6ab51b7b6"
 "checksum winapi-util 0.1.1 (registry+https://github.com/rust-lang/crates.io-index)" = "afc5508759c5bf4285e61feb862b6083c8480aec864fa17a81fdec6f69b461ab"
