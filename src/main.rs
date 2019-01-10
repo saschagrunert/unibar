@@ -1,7 +1,3 @@
-extern crate env_logger;
-extern crate failure;
-extern crate gbar;
-
 use failure::Fallible;
 use gbar::Bar;
 use std::env::set_var;
@@ -14,7 +10,7 @@ fn main() -> Fallible<()> {
     env_logger::init();
 
     // Init the bar
-    let mut bar = Bar::new(200, 50)?;
+    let mut bar = Bar::new()?;
 
     // Run the bar
     bar.run()?;
