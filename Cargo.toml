@@ -12,7 +12,7 @@ gfx-hal = "0.1.0"
 glsl-to-spirv = "0.1.7"
 log = "0.4.6"
 wayland-client = "=0.21.7"
-winit = "0.18.0"
+winit = "0.18.1"
 
 [[bin]]
 name = "gbar"
