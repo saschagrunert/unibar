@@ -32,7 +32,9 @@ coverage:
 	cargo kcov
 
 lint-clippy:
-	cargo clippy $(GENERAL_ARGS) -- -D warnings
+	cargo clippy $(GENERAL_ARGS) -- -D warnings \
+		-A clippy::ref-in-deref \
+		-A clippy::type-complexity
 
 lint-rustfmt:
 	cargo fmt

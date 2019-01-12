@@ -23,10 +23,10 @@ fn main() -> Fallible<()> {
     info!("Set logging verbosity to: {}", verbosity);
 
     // Init the bar
-    let mut bar = Bar::new()?;
+    let mut gbar = Bar::new()?;
 
     // Run the bar
-    bar.run()?;
+    gbar.run()?;
 
     Ok(())
 }
