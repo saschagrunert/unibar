@@ -1,0 +1,3 @@
+var N = null;var searchIndex = {};
+searchIndex["gbar"]={"doc":"The main library interface","items":[[3,"Bar","gbar","The root bar structure",N,N],[11,"new","","Create a new Bar instance",0,[[],["fallible"]]],[11,"run","","Run the bar",0,[[["self"]],["fallible"]]],[11,"from","","",0,[[["t"]],["t"]]],[11,"into","","",0,[[["self"]],["u"]]],[11,"try_from","","",0,[[["u"]],["result"]]],[11,"borrow","","",0,[[["self"]],["t"]]],[11,"borrow_mut","","",0,[[["self"]],["t"]]],[11,"try_into","","",0,[[["self"]],["result"]]],[11,"get_type_id","","",0,[[["self"]],["typeid"]]],[11,"ref_from_ptr","","",0,N],[11,"is_size_suitable","","",0,[[["usize"]],["bool"]]],[11,"indiv_size","","",0,[[],["usize"]]]],"paths":[[3,"Bar"]]};
+initSearch(searchIndex);addSearchOptions(searchIndex);

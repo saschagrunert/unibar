@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Bar","The root bar structure"]]});
