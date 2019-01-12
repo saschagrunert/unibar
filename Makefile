@@ -1,5 +1,5 @@
 # Compiler configuration
-GENERAL_ARGS =
+GENERAL_ARGS = --all
 
 .PHONY: \
 	bench \
@@ -26,13 +26,13 @@ build:
 	cargo build $(GENERAL_ARGS)
 
 build-doc:
-	cargo doc --all --no-deps
+	cargo doc --no-deps $(GENERAL_ARGS)
 
 coverage:
 	cargo kcov
 
 lint-clippy:
-	cargo clippy --all -- -D warnings
+	cargo clippy $(GENERAL_ARGS) -- -D warnings
 
 lint-rustfmt:
 	cargo fmt

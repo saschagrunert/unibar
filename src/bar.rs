@@ -1,6 +1,7 @@
 //! Bar definitions and functions
 use crate::{fragment, vertex};
 use failure::{format_err, Fallible};
+use i3ipc::I3Connection;
 use log::debug;
 use std::sync::Arc;
 use vulkano::{
@@ -21,7 +22,9 @@ use vulkano::{
 };
 use vulkano_win::VkSurfaceBuild;
 use winit::{
-    dpi::LogicalSize, Event, EventsLoop, Window, WindowBuilder, WindowEvent,
+    dpi::LogicalSize,
+    os::unix::{WindowBuilderExt, XWindowType},
+    Event, EventsLoop, Window, WindowBuilder, WindowEvent,
 };
 
 #[derive(Debug, Clone)]
@@ -31,6 +34,7 @@ struct Vertex {
 
 /// The root bar structure
 pub struct Bar {
+    i3ipc: I3Connection,
     events_loop: EventsLoop,
     surface: Arc<Surface<Window>>,
     device: Arc<Device>,
@@ -45,6 +49,10 @@ pub struct Bar {
 impl Bar {
     /// Create a new Bar instance
     pub fn new() -> Fallible<Self> {
+        debug!("Connecting to i3");
+        let mut i3ipc = I3Connection::connect()?;
+        debug!("Found i3 version {}", i3ipc.get_version()?.human_readable);
+
         debug!("Creating vulkan instance");
         let instance = Self::create_instance()?;
 
@@ -54,7 +62,8 @@ impl Bar {
         debug!("Creating events loop, surface and window");
         let events_loop = EventsLoop::new();
         let surface = WindowBuilder::new()
-            .with_dimensions(LogicalSize::new(200.0, 200.0))
+            .with_dimensions(LogicalSize::new(20.0, 20.0))
+            .with_x11_window_type(XWindowType::Dock)
             .with_resizable(false)
             .with_decorations(false)
             .with_always_on_top(true)
@@ -72,6 +81,7 @@ impl Bar {
 
         debug!("Bar initialization done");
         Ok(Bar {
+            i3ipc,
             events_loop,
             surface,
             device,
