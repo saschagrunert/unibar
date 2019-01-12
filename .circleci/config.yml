@@ -18,6 +18,7 @@ workflows:
       - rustfmt
       - clippy
       - bench
+      - test
 jobs:
   build:
     <<: *defaults
@@ -34,7 +35,7 @@ jobs:
             - build-cache-{{ arch }}-{{ checksum "Cargo.lock" }}
       - run:
           name: Build all targets
-          command: make GENERAL_ARGS=-j8
+          command: make
       - save_cache:
           key: build-cache-{{ arch }}-{{ checksum "Cargo.lock" }}
           paths:
@@ -49,7 +50,7 @@ jobs:
             - doc-cache-{{ arch }}-{{ checksum "Cargo.lock" }}
       - run:
           name: Build documentation
-          command: make build-doc GENERAL_ARGS=-j8
+          command: make build-doc
       - save_cache:
           key: doc-cache-{{ arch }}-{{ checksum "Cargo.lock" }}
           paths:
@@ -99,7 +100,7 @@ jobs:
             - clippy-cache-{{ arch }}-{{ checksum "Cargo.lock" }}
       - run:
           name: Clippy
-          command: make lint-clippy GENERAL_ARGS=-j8
+          command: make lint-clippy
       - save_cache:
           key: clippy-cache-{{ arch }}-{{ checksum "Cargo.lock" }}
           paths:
@@ -111,7 +112,7 @@ jobs:
       - checkout
       - run:
           name: Run tests
-          command: make coverage GENERAL_ARGS="-v -j2"
+          command: make coverage
       - run:
           name: Upload coverage report
           command: bash <(curl -s https://codecov.io/bash)
@@ -124,7 +125,7 @@ jobs:
             - bench-cache-{{ arch }}-{{ checksum "Cargo.lock" }}
       - run:
           name: Run benchmarks
-          command: make bench GENERAL_ARGS=-j8
+          command: make bench
       - save_cache:
           key: bench-cache-{{ arch }}-{{ checksum "Cargo.lock" }}
           paths:
