@@ -17,7 +17,6 @@ workflows:
               only: master
       - rustfmt
       - clippy
-      - test
       - bench
 jobs:
   build:
