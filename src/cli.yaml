@@ -1,0 +1,16 @@
+---
+name: gbar
+bin_name: gbar
+author: Sascha Grunert <mail@saschagrunert.de>
+about: An experimental GPU accelerated status bar written in Rust
+after_help: 'More info at: https://github.com/saschagrunert/gbar'
+global_settings:
+  - VersionlessSubcommands
+  - ColoredHelp
+
+args:
+  - verbose:
+      short: v
+      long: verbose
+      multiple: true
+      help: Set the logging verbosity (multiple)

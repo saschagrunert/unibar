@@ -5,13 +5,14 @@ name = "gbar"
 version = "0.1.0"
 
 [dependencies]
+clap = { version = "2.32.0", features = ["yaml"] }
 env_logger = "0.6.0"
 failure = "0.1.5"
 log = "0.4.6"
 vulkano = "0.11.1"
 vulkano-shaders = "0.11.1"
 vulkano-win = "0.11.1"
-winit = "0.18.0"
+winit = "0.18.1"
 
 [[bin]]
 name = "gbar"
