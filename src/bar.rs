@@ -1,6 +1,7 @@
 //! Bar definitions and functions
 use crate::{fragment, vertex};
 use failure::{format_err, Fallible};
+use i3ipc::I3Connection;
 use log::debug;
 use std::sync::Arc;
 use vulkano::{
@@ -21,7 +22,9 @@ use vulkano::{
 };
 use vulkano_win::VkSurfaceBuild;
 use winit::{
-    dpi::LogicalSize, Event, EventsLoop, Window, WindowBuilder, WindowEvent,
+    dpi::LogicalSize,
+    os::unix::{WindowBuilderExt, XWindowType},
+    Event, EventsLoop, Window, WindowBuilder, WindowEvent,
 };
 
 #[derive(Debug, Clone)]
@@ -45,6 +48,10 @@ pub struct Bar {
 impl Bar {
     /// Create a new Bar instance
     pub fn new() -> Fallible<Self> {
+        debug!("Connecting to i3");
+        let mut i3ipc = I3Connection::connect()?;
+        debug!("Found i3 version {}", i3ipc.get_version()?.human_readable);
+
         debug!("Creating vulkan instance");
         let instance = Self::create_instance()?;
 
@@ -54,7 +61,8 @@ impl Bar {
         debug!("Creating events loop, surface and window");
         let events_loop = EventsLoop::new();
         let surface = WindowBuilder::new()
-            .with_dimensions(LogicalSize::new(200.0, 200.0))
+            .with_dimensions(LogicalSize::new(20.0, 20.0))
+            .with_x11_window_type(XWindowType::Dock)
             .with_resizable(false)
             .with_decorations(false)
             .with_always_on_top(true)
@@ -96,7 +104,7 @@ impl Bar {
     ) -> Fallible<PhysicalDevice<'a>> {
         let physical = PhysicalDevice::enumerate(&instance)
             .next()
-            .ok_or(format_err!("No valid physical device found"))?;
+            .ok_or_else(|| format_err!("No valid physical device found"))?;
 
         debug!(
             "Using physical device: {} (type: {:?})",
@@ -117,7 +125,7 @@ impl Bar {
                 q.supports_graphics()
                     && surface.is_supported(q).unwrap_or(false)
             })
-            .ok_or(format_err!("Unable to create queue family"))?;
+            .ok_or_else(|| format_err!("Unable to create queue family"))?;
         let (device, mut queues) = Device::new(
             physical,
             physical.supported_features(),
@@ -127,7 +135,9 @@ impl Bar {
             },
             [(queue_family, 0.5)].iter().cloned(),
         )?;
-        let queue = queues.next().ok_or(format_err!("No valid queue found"))?;
+        let queue = queues
+            .next()
+            .ok_or_else(|| format_err!("No valid queue found"))?;
         Ok((device, queue))
     }
 
@@ -155,7 +165,7 @@ impl Bar {
             .supported_composite_alpha
             .iter()
             .next()
-            .ok_or(format_err!("No valid alpha mode found"))?;
+            .ok_or_else(|| format_err!("No valid alpha mode found"))?;
 
         // Choosing the internal format that the images will have.
         let format = caps.supported_formats[0].0;
@@ -277,7 +287,7 @@ impl Bar {
         .fragment_shader(self.fs.main_entry_point(), ())
         // We have to indicate which subpass of which render pass this pipeline is going to be used
         // in. The pipeline will only be usable from this particular subpass.
-        .render_pass(Subpass::from(render_pass.clone(), 0).ok_or(format_err!("Unable to create subpass"))?)
+        .render_pass(Subpass::from(render_pass.clone(), 0).ok_or_else(|| format_err!("Unable to create subpass"))?)
         // Now that our builder is filled, we call `build()` to obtain an actual pipeline.
         .build(self.device.clone())?,
         );
