@@ -3,8 +3,6 @@ version: 2
 defaults: &defaults
   docker:
     - image: saschagrunert/build-rust
-      environment:
-        GENERAL_ARGS: -j8
 workflows:
   version: 2
   pipeline:
@@ -37,7 +35,7 @@ jobs:
             - build-cache-{{ arch }}-{{ checksum "Cargo.lock" }}
       - run:
           name: Build all targets
-          command: make
+          command: make GENERAL_ARGS=-j8
       - save_cache:
           key: build-cache-{{ arch }}-{{ checksum "Cargo.lock" }}
           paths:
@@ -52,7 +50,7 @@ jobs:
             - doc-cache-{{ arch }}-{{ checksum "Cargo.lock" }}
       - run:
           name: Build documentation
-          command: make build-doc
+          command: make build-doc GENERAL_ARGS=-j8
       - save_cache:
           key: doc-cache-{{ arch }}-{{ checksum "Cargo.lock" }}
           paths:
@@ -102,7 +100,7 @@ jobs:
             - clippy-cache-{{ arch }}-{{ checksum "Cargo.lock" }}
       - run:
           name: Clippy
-          command: make lint-clippy
+          command: make lint-clippy GENERAL_ARGS=-j8
       - save_cache:
           key: clippy-cache-{{ arch }}-{{ checksum "Cargo.lock" }}
           paths:
@@ -114,7 +112,7 @@ jobs:
       - checkout
       - run:
           name: Run tests
-          command: make coverage
+          command: make coverage GENERAL_ARGS=-j8
       - run:
           name: Upload coverage report
           command: bash <(curl -s https://codecov.io/bash)
@@ -127,7 +125,7 @@ jobs:
             - bench-cache-{{ arch }}-{{ checksum "Cargo.lock" }}
       - run:
           name: Run benchmarks
-          command: make bench
+          command: make bench GENERAL_ARGS=-j8
       - save_cache:
           key: bench-cache-{{ arch }}-{{ checksum "Cargo.lock" }}
           paths:
