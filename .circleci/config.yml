@@ -3,6 +3,8 @@ version: 2
 defaults: &defaults
   docker:
     - image: saschagrunert/build-rust
+      environment:
+        GENERAL_ARGS: -j8
 workflows:
   version: 2
   pipeline:
