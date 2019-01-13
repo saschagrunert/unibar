@@ -5,5 +5,5 @@ workflow "Workflow" {
 
 action "Build" {
   uses = "docker://saschagrunert/build-rust:latest"
-  runs = "make"
+  runs = "rustup default nightly && rustc --version"
 }
