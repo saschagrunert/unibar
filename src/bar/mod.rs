@@ -53,12 +53,11 @@ impl Bar {
             .map_err(|_| err_msg("Unable to create application"))?;
         debug!("Initialization done");
 
-        match dry_run {
-            false => {
-                debug!("Starting app");
-                app.run();
-            }
-            _ => debug!("Dry run specified, everything is okay"),
+        if dry_run {
+            debug!("Dry run specified, everything is okay")
+        } else {
+            debug!("Starting app");
+            app.run();
         }
 
         Ok(())
