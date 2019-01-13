@@ -14,3 +14,7 @@ args:
       long: verbose
       multiple: true
       help: Set the logging verbosity (multiple)
+  - dry-run:
+      short: d
+      long: dry-run
+      help: Test the bar initialization without running it

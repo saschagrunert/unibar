@@ -2,7 +2,6 @@
 #![deny(missing_docs)]
 
 mod bar;
-mod fragment;
-mod vertex;
+mod state;
 
 pub use crate::bar::Bar;
