@@ -4,6 +4,6 @@ workflow "Workflow" {
 }
 
 action "Build" {
-  uses = "saschagrunert/build-rust@latest"
+  uses = "docker://saschagrunert/build-rust:latest"
   runs = "make"
 }
