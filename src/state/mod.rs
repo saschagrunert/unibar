@@ -5,6 +5,7 @@ use amethyst::{input::is_close_requested, prelude::*};
 use i3ipc::I3Connection;
 use log::info;
 
+#[allow(dead_code)]
 /// The state representation of the bar
 pub struct BarState {
     /// The i3 connection
