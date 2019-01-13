@@ -1,5 +1,5 @@
 [package]
-authors = ["Sascha Grunert <sgrunert@suse.com>"]
+authors = ["Sascha Grunert <mail@saschagrunert.de>"]
 edition = "2018"
 name = "gbar"
 version = "0.1.0"

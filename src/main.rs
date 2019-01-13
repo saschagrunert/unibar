@@ -17,11 +17,8 @@ fn main() -> Fallible<()> {
         4 | _ => LevelFilter::Trace,
     };
 
-    // Init the bar
-    let mut gbar = Bar::new(level_filter)?;
-
-    // Run the bar
-    gbar.run()?;
+    // Init and start the bar
+    Bar::run(level_filter, matches.is_present("dry-run"))?;
 
     Ok(())
 }
