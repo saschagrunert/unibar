@@ -39,7 +39,7 @@ lint-rustfmt:
 	git diff --exit-code
 
 run:
-	cargo run $(GENERAL_ARGS)
+	cargo run
 
 test:
 	cargo test $(GENERAL_ARGS)
