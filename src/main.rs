@@ -1,7 +1,7 @@
 use clap::{crate_version, load_yaml, App};
 use failure::Fallible;
-use gbar::Bar;
 use log::LevelFilter;
+use unibar::Bar;
 
 fn main() -> Fallible<()> {
     // Load the CLI parameters from YAML

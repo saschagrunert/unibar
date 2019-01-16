@@ -1,7 +1,7 @@
 [package]
 authors = ["Sascha Grunert <mail@saschagrunert.de>"]
 edition = "2018"
-name = "gbar"
+name = "unibar"
 version = "0.1.0"
 
 [dependencies]
@@ -14,5 +14,5 @@ log = "0.4.6"
 winit = "0.18.1"
 
 [[bin]]
-name = "gbar"
+name = "unibar"
 path = "src/main.rs"

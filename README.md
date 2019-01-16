@@ -1,10 +1,10 @@
-# gbar
+# unibar
 
-[![CircleCI](https://circleci.com/gh/saschagrunert/gbar.svg?style=shield)](https://circleci.com/gh/saschagrunert/gbar)
-[![Coverage](https://codecov.io/gh/saschagrunert/gbar/branch/master/graph/badge.svg)](https://codecov.io/gh/saschagrunert/gbar)
-[![dependency status](https://deps.rs/repo/github/saschagrunert/gbar/status.svg)](https://deps.rs/repo/github/saschagrunert/gbar)
-[![Doc](https://img.shields.io/badge/doc-gbar-orange.svg)](https://saschagrunert.github.io/gbar/doc/gbar/index.html)
-[![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/saschagrunert/gbar/blob/master/LICENSE)
+[![CircleCI](https://circleci.com/gh/saschagrunert/unibar.svg?style=shield)](https://circleci.com/gh/saschagrunert/unibar)
+[![Coverage](https://codecov.io/gh/saschagrunert/unibar/branch/master/graph/badge.svg)](https://codecov.io/gh/saschagrunert/unibar)
+[![dependency status](https://deps.rs/repo/github/saschagrunert/unibar/status.svg)](https://deps.rs/repo/github/saschagrunert/unibar)
+[![Doc](https://img.shields.io/badge/doc-unibar-orange.svg)](https://saschagrunert.github.io/unibar/doc/unibar/index.html)
+[![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/saschagrunert/unibar/blob/master/LICENSE)
 
 ## An experimental GPU accelerated i3 status bar written in Rust
 

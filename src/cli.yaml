@@ -1,9 +1,9 @@
 ---
-name: gbar
-bin_name: gbar
+name: unibar
+bin_name: unibar
 author: Sascha Grunert <mail@saschagrunert.de>
 about: An experimental GPU accelerated status bar written in Rust
-after_help: 'More info at: https://github.com/saschagrunert/gbar'
+after_help: 'More info at: https://github.com/saschagrunert/unibar'
 global_settings:
   - VersionlessSubcommands
   - ColoredHelp
