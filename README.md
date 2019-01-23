@@ -6,7 +6,7 @@
 [![Doc](https://img.shields.io/badge/doc-unibar-orange.svg)](https://saschagrunert.github.io/unibar/doc/unibar/index.html)
 [![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/saschagrunert/unibar/blob/master/LICENSE)
 
-## An experimental GPU accelerated i3 status bar written in Rust
+## A GPU accelerated i3 status bar written in Rust
 
 Target of this project is to write a GPU enhanced status bar to enable all the
 custom fanciness every software developer needs.
