@@ -18,7 +18,7 @@ fn main() -> Fallible<()> {
     };
 
     // Init and start the bar
-    Bar::run(level_filter, matches.is_present("dry-run"))?;
+    Bar::run(level_filter)?;
 
     Ok(())
 }
