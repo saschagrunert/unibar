@@ -136,19 +136,9 @@ jobs:
     machine: true
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - docker-cache-{{ arch }}-{{ checksum "Cargo.lock" }}
       - run:
           name: Build docker image
-          command: |
-            sudo chown -R 1000:1000 target
-            make deploy
-      - save_cache:
-          key: docker-cache-{{ arch }}-{{ checksum "Cargo.lock" }}
-          paths:
-            - /root/.cargo/registry
-            - target
+          command: make deploy
       - store_artifacts:
           path: unibar.tar
       - persist_to_workspace:
