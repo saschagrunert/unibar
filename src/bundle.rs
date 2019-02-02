@@ -1,16 +1,16 @@
-use crate::system::{StatusSystem, WorkspaceSystem};
-use amethyst::{
-    core::bundle::{Result, SystemBundle},
-    ecs::prelude::DispatcherBuilder,
-};
+use crate::system::{SegmentSystem, WorkspaceSystem};
+use amethyst::{core::bundle::SystemBundle, ecs::DispatcherBuilder, Error};
 
 /// This bundle prepares the world for the whole bar
-pub struct BarBundle;
+pub struct Bundle;
 
-impl<'a, 'b> SystemBundle<'a, 'b> for BarBundle {
-    fn build(self, builder: &mut DispatcherBuilder<'a, 'b>) -> Result<()> {
-        builder.add(WorkspaceSystem, "workspace_system", &[]);
-        builder.add(StatusSystem, "status_system", &[]);
+impl<'a, 'b> SystemBundle<'a, 'b> for Bundle {
+    fn build(
+        self,
+        builder: &mut DispatcherBuilder<'a, 'b>,
+    ) -> Result<(), Error> {
+        builder.add(WorkspaceSystem::new()?, "workspace_system", &[]);
+        builder.add(SegmentSystem::default(), "segment_system", &[]);
         Ok(())
     }
 }
