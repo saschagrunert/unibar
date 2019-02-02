@@ -141,7 +141,9 @@ jobs:
             - docker-cache-{{ arch }}-{{ checksum "Cargo.lock" }}
       - run:
           name: Build docker image
-          command: make deploy
+          command: |
+            sudo chown -R 1000:1000 target
+            make deploy
       - save_cache:
           key: docker-cache-{{ arch }}-{{ checksum "Cargo.lock" }}
           paths:
