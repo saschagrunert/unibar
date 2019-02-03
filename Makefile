@@ -3,11 +3,11 @@ GENERAL_ARGS = --all
 
 .PHONY: \
 	bench \
-	build-doc \
 	build \
+	build-doc \
 	coverage \
-	lint-rustfmt \
 	lint-clippy \
+	lint-rustfmt \
 	run \
 	test
 
@@ -32,7 +32,8 @@ coverage:
 	cargo kcov
 
 lint-clippy:
-	cargo clippy $(GENERAL_ARGS) -- -D warnings \
+	cargo clippy $(GENERAL_ARGS) -- \
+		-D warnings \
 		-A clippy::type-complexity
 
 lint-rustfmt:
@@ -44,12 +45,3 @@ run:
 
 test:
 	cargo test $(GENERAL_ARGS)
-
-deploy:
-	sudo chown -R 1000:1000 $(PWD)
-	docker run --rm -it -v $(PWD):/home/rust/src \
-		ekidd/rust-musl-builder:latest \
-		bash -c 'sudo apt-get install -y alsa-lib && cargo build --release $(GENERAL_ARGS)'
-	sudo chown -R $(USER) $(PWD)
-	docker build --no-cache -t unibar .
-	docker save unibar -o unibar.tar
