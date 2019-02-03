@@ -49,7 +49,7 @@ deploy:
 	sudo chown -R 1000:1000 $(PWD)
 	docker run --rm -it -v $(PWD):/home/rust/src \
 		ekidd/rust-musl-builder:latest \
-		cargo build --release $(GENERAL_ARGS)
+		bash -c 'apt-get install -y alsa-lib && cargo build --release $(GENERAL_ARGS)'
 	sudo chown -R $(USER) $(PWD)
 	docker build --no-cache -t unibar .
 	docker save unibar -o unibar.tar
