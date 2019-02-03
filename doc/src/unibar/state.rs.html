@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `src/state.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>state.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `src/state.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>state.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -156,139 +156,78 @@
 <span id="156">156</span>
 <span id="157">157</span>
 <span id="158">158</span>
-<span id="159">159</span>
-<span id="160">160</span>
-<span id="161">161</span>
-<span id="162">162</span>
-<span id="163">163</span>
-<span id="164">164</span>
-<span id="165">165</span>
-<span id="166">166</span>
-<span id="167">167</span>
-<span id="168">168</span>
-<span id="169">169</span>
-<span id="170">170</span>
-<span id="171">171</span>
-<span id="172">172</span>
-<span id="173">173</span>
-<span id="174">174</span>
-<span id="175">175</span>
-<span id="176">176</span>
-<span id="177">177</span>
-<span id="178">178</span>
-<span id="179">179</span>
-<span id="180">180</span>
-<span id="181">181</span>
-<span id="182">182</span>
-<span id="183">183</span>
-<span id="184">184</span>
-<span id="185">185</span>
-<span id="186">186</span>
-<span id="187">187</span>
-<span id="188">188</span>
-<span id="189">189</span>
-<span id="190">190</span>
-<span id="191">191</span>
-<span id="192">192</span>
-<span id="193">193</span>
-<span id="194">194</span>
-<span id="195">195</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Global state handling for the bar</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">color</span>::<span class="ident">ColorScheme</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::{
+    <span class="ident">color</span>::<span class="ident">ColorScheme</span>,
+    <span class="ident">segment</span>::{<span class="ident">Cpu</span>, <span class="ident">Date</span>, <span class="ident">Segment</span>},
+};
 <span class="kw">use</span> <span class="ident">amethyst</span>::{
     <span class="ident">assets</span>::{<span class="ident">AssetStorage</span>, <span class="ident">Loader</span>},
     <span class="ident">core</span>::<span class="ident">Transform</span>,
     <span class="ident">ecs</span>::<span class="ident">World</span>,
     <span class="ident">input</span>::{<span class="ident">is_close_requested</span>, <span class="ident">is_key_down</span>},
-    <span class="ident">prelude</span>::<span class="kw-2">*</span>,
+    <span class="ident">prelude</span>::{
+        <span class="ident">Builder</span>, <span class="ident">GameData</span>, <span class="ident">SimpleState</span>, <span class="ident">SimpleTrans</span>, <span class="ident">StateData</span>, <span class="ident">StateEvent</span>,
+        <span class="ident">Trans</span>,
+    },
     <span class="ident">renderer</span>::{
         <span class="ident">Camera</span>, <span class="ident">PngFormat</span>, <span class="ident">Projection</span>, <span class="ident">Texture</span>, <span class="ident">TextureHandle</span>, <span class="ident">TextureMetadata</span>,
     },
-    <span class="ident">ui</span>::{
-        <span class="ident">Anchor</span>, <span class="ident">FontHandle</span>, <span class="ident">TtfFormat</span>, <span class="ident">UiButtonBuilder</span>, <span class="ident">UiImage</span>, <span class="ident">UiText</span>,
-        <span class="ident">UiTransform</span>,
-    },
+    <span class="ident">ui</span>::{<span class="ident">Anchor</span>, <span class="ident">FontHandle</span>, <span class="ident">TtfFormat</span>, <span class="ident">UiButtonBuilder</span>, <span class="ident">UiTransform</span>},
     <span class="ident">winit</span>::<span class="ident">VirtualKeyCode</span>,
 };
-<span class="kw">use</span> <span class="ident">i3ipc</span>::<span class="ident">I3Connection</span>;
-<span class="kw">use</span> <span class="ident">log</span>::<span class="ident">warn</span>;
 
 <span class="doccomment">/// The state representation of the bar</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BarState</span>;
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">State</span>;
 
-<span class="kw">impl</span> <span class="ident">BarState</span> {
-    <span class="kw">fn</span> <span class="ident">init_workspace_buttons</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">world</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">World</span>) {
-        <span class="kw">let</span> <span class="ident">workspaces</span> <span class="op">=</span> [<span class="string">&quot;1&quot;</span>, <span class="string">&quot;2&quot;</span>, <span class="string">&quot;3&quot;</span>, <span class="string">&quot;4&quot;</span>, <span class="string">&quot;5&quot;</span>];
-
-        <span class="comment">// Load the images</span>
-        <span class="kw">let</span> <span class="ident">image</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">load_texture</span>(<span class="string">&quot;images/background.png&quot;</span>, <span class="ident">world</span>);
-        <span class="kw">let</span> <span class="ident">hover_image</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">load_texture</span>(<span class="string">&quot;images/selection.png&quot;</span>, <span class="ident">world</span>);
-        <span class="kw">let</span> <span class="ident">press_image</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">load_texture</span>(<span class="string">&quot;images/foreground.png&quot;</span>, <span class="ident">world</span>);
-
-        <span class="comment">// Load the font</span>
-        <span class="kw">let</span> <span class="ident">font</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">load_font</span>(<span class="ident">world</span>);
-
-        <span class="comment">// Create the buttons</span>
-        <span class="kw">for</span> (<span class="ident">index</span>, <span class="ident">workspace</span>) <span class="kw">in</span> <span class="ident">workspaces</span>.<span class="ident">iter</span>().<span class="ident">enumerate</span>() {
-            <span class="kw">let</span> <span class="ident">button</span> <span class="op">=</span> <span class="ident">UiButtonBuilder</span>::<span class="ident">new</span>(
-                <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;ws_button_{}&quot;</span>, <span class="ident">workspace</span>),
-                <span class="ident">workspace</span>,
-            )
-            .<span class="ident">with_anchor</span>(<span class="ident">Anchor</span>::<span class="ident">TopLeft</span>)
-            .<span class="ident">with_font</span>(<span class="ident">font</span>.<span class="ident">clone</span>())
-            .<span class="ident">with_font_size</span>(<span class="self">Self</span>::<span class="ident">font_size</span>())
-            .<span class="ident">with_hover_image</span>(<span class="ident">hover_image</span>.<span class="ident">clone</span>())
-            .<span class="ident">with_hover_text_color</span>(<span class="ident">ColorScheme</span>::<span class="ident">foreground</span>())
-            .<span class="ident">with_image</span>(<span class="ident">image</span>.<span class="ident">clone</span>())
-            .<span class="ident">with_position</span>((<span class="number">20</span> <span class="op">*</span> <span class="ident">index</span> <span class="op">+</span> <span class="number">10</span>) <span class="kw">as</span> <span class="ident">f32</span>, <span class="op">-</span><span class="number">10.</span>)
-            .<span class="ident">with_press_image</span>(<span class="ident">press_image</span>.<span class="ident">clone</span>())
-            .<span class="ident">with_press_text_color</span>(<span class="ident">ColorScheme</span>::<span class="ident">background</span>())
-            .<span class="ident">with_size</span>(<span class="number">20.</span>, <span class="number">20.</span>)
-            .<span class="ident">with_text_color</span>(<span class="ident">ColorScheme</span>::<span class="ident">foreground</span>())
-            .<span class="ident">build_from_world</span>(<span class="ident">world</span>);
-
-            <span class="comment">// Add the entity to the world</span>
-            <span class="ident">world</span>.<span class="ident">add_resource</span>(<span class="ident">button</span>);
-        }
-    }
-
-    <span class="kw">fn</span> <span class="ident">init_date_text</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">world</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">World</span>) {
-        <span class="comment">// Load the font</span>
-        <span class="kw">let</span> <span class="ident">font</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">load_font</span>(<span class="ident">world</span>);
-
-        <span class="comment">// Build the transform</span>
-        <span class="kw">let</span> <span class="ident">transform</span> <span class="op">=</span> <span class="ident">UiTransform</span>::<span class="ident">new</span>(
-            <span class="string">&quot;date_time_text&quot;</span>.<span class="ident">to_string</span>(),
-            <span class="ident">Anchor</span>::<span class="ident">TopRight</span>,
-            <span class="op">-</span><span class="number">100.</span>,
-            <span class="op">-</span><span class="number">10.</span>,
-            <span class="number">1.</span>,
-            <span class="number">200.</span>,
-            <span class="number">20.</span>,
-            <span class="number">0</span>,
-        );
-
-        <span class="comment">// Create the text entity</span>
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">text</span> <span class="op">=</span> <span class="ident">UiText</span>::<span class="ident">new</span>(
-            <span class="ident">font</span>,
-            <span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>(),
-            <span class="ident">ColorScheme</span>::<span class="ident">foreground</span>(),
-            <span class="self">Self</span>::<span class="ident">font_size</span>(),
-        );
-        <span class="ident">text</span>.<span class="ident">align</span> <span class="op">=</span> <span class="ident">Anchor</span>::<span class="ident">MiddleRight</span>;
-
-        <span class="comment">// Add the entity to the world</span>
-        <span class="ident">world</span>.<span class="ident">create_entity</span>().<span class="ident">with</span>(<span class="ident">transform</span>).<span class="ident">with</span>(<span class="ident">text</span>).<span class="ident">build</span>();
+<span class="kw">impl</span> <span class="ident">State</span> {
+    <span class="kw">fn</span> <span class="ident">init_date_segment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">world</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">World</span>) {
+        <span class="comment">// Create a new date object and add it to the world</span>
+        <span class="kw">let</span> <span class="ident">date</span> <span class="op">=</span> <span class="ident">Date</span>::<span class="ident">new</span>();
+        <span class="self">self</span>.<span class="ident">init_button_segment</span>(<span class="ident">world</span>, <span class="kw-2">&amp;</span><span class="ident">date</span>, <span class="op">-</span><span class="number">100</span>, <span class="number">190</span>);
+        <span class="ident">world</span>.<span class="ident">add_resource</span>(<span class="ident">date</span>);
 
         <span class="comment">// Add a separator</span>
-        <span class="self">self</span>.<span class="ident">add_separator</span>(<span class="ident">world</span>, <span class="op">-</span><span class="number">200.</span>);
+        <span class="self">self</span>.<span class="ident">add_separator</span>(<span class="ident">world</span>, <span class="op">-</span><span class="number">205.</span>);
+    }
+
+    <span class="kw">fn</span> <span class="ident">init_cpu_segment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">world</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">World</span>) {
+        <span class="comment">// Create a new cpu object and add it to the world</span>
+        <span class="kw">let</span> <span class="ident">cpu</span> <span class="op">=</span> <span class="ident">Cpu</span>::<span class="ident">new</span>();
+        <span class="self">self</span>.<span class="ident">init_button_segment</span>(<span class="ident">world</span>, <span class="kw-2">&amp;</span><span class="ident">cpu</span>, <span class="op">-</span><span class="number">265</span>, <span class="number">100</span>);
+        <span class="ident">world</span>.<span class="ident">add_resource</span>(<span class="ident">cpu</span>);
+
+        <span class="comment">// Add a separator</span>
+        <span class="self">self</span>.<span class="ident">add_separator</span>(<span class="ident">world</span>, <span class="op">-</span><span class="number">325.</span>);
+    }
+
+    <span class="kw">fn</span> <span class="ident">init_button_segment</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">world</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">World</span>,
+        <span class="ident">segment</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>,
+        <span class="ident">x</span>: <span class="ident">i16</span>,
+        <span class="ident">width</span>: <span class="ident">u16</span>,
+    ) <span class="kw">where</span>
+        <span class="ident">T</span>: <span class="ident">Segment</span>,
+    {
+        <span class="kw">let</span> <span class="ident">builder</span>: <span class="ident">UiButtonBuilder</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span>
+            <span class="ident">UiButtonBuilder</span>::<span class="ident">new</span>(<span class="ident">segment</span>.<span class="ident">id</span>(), <span class="string">&quot;&quot;</span>);
+        <span class="ident">builder</span>
+            .<span class="ident">with_anchor</span>(<span class="ident">Anchor</span>::<span class="ident">TopRight</span>)
+            .<span class="ident">with_font</span>(<span class="self">self</span>.<span class="ident">load_font</span>(<span class="ident">world</span>))
+            .<span class="ident">with_font_size</span>(<span class="self">Self</span>::<span class="ident">font_size</span>())
+            .<span class="ident">with_image</span>(<span class="self">self</span>.<span class="ident">load_texture</span>(<span class="string">&quot;images/background.png&quot;</span>, <span class="ident">world</span>))
+            .<span class="ident">with_position</span>(<span class="ident">f32</span>::<span class="ident">from</span>(<span class="ident">x</span>), <span class="op">-</span><span class="number">10.</span>)
+            .<span class="ident">with_size</span>(<span class="ident">f32</span>::<span class="ident">from</span>(<span class="ident">width</span>), <span class="number">20.</span>)
+            .<span class="ident">with_text_color</span>(<span class="ident">ColorScheme</span>::<span class="ident">foreground</span>())
+            .<span class="ident">build_from_world</span>(<span class="ident">world</span>);
     }
 
     <span class="kw">fn</span> <span class="ident">add_separator</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">world</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">World</span>, <span class="ident">x</span>: <span class="ident">f32</span>) {
         <span class="comment">// Load the image</span>
-        <span class="kw">let</span> <span class="ident">image</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">load_texture</span>(<span class="string">&quot;images/purple.png&quot;</span>, <span class="ident">world</span>);
+        <span class="kw">let</span> <span class="ident">image</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">load_texture</span>(<span class="string">&quot;images/separator.png&quot;</span>, <span class="ident">world</span>);
 
         <span class="comment">// Build the transform</span>
         <span class="kw">let</span> <span class="ident">transform</span> <span class="op">=</span> <span class="ident">UiTransform</span>::<span class="ident">new</span>(
@@ -297,17 +236,12 @@
             <span class="ident">x</span>,
             <span class="op">-</span><span class="number">10.</span>,
             <span class="number">1.</span>,
+            <span class="number">10.</span>,
             <span class="number">20.</span>,
-            <span class="number">20.</span>,
-            <span class="number">0</span>,
         );
 
         <span class="comment">// Add the entity to the world</span>
-        <span class="ident">world</span>
-            .<span class="ident">create_entity</span>()
-            .<span class="ident">with</span>(<span class="ident">transform</span>)
-            .<span class="ident">with</span>(<span class="ident">UiImage</span> { <span class="ident">texture</span>: <span class="ident">image</span> })
-            .<span class="ident">build</span>();
+        <span class="ident">world</span>.<span class="ident">create_entity</span>().<span class="ident">with</span>(<span class="ident">transform</span>).<span class="ident">with</span>(<span class="ident">image</span>).<span class="ident">build</span>();
     }
 
     <span class="kw">fn</span> <span class="ident">init_camera</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">world</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">World</span>) {
@@ -320,7 +254,7 @@
             .<span class="ident">build</span>();
     }
 
-    <span class="kw">fn</span> <span class="ident">load_texture</span><span class="op">&lt;</span><span class="ident">N</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="ident">N</span>, <span class="ident">world</span>: <span class="kw-2">&amp;</span><span class="ident">World</span>) <span class="op">-&gt;</span> <span class="ident">TextureHandle</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_texture</span><span class="op">&lt;</span><span class="ident">N</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="ident">N</span>, <span class="ident">world</span>: <span class="kw-2">&amp;</span><span class="ident">World</span>) <span class="op">-&gt;</span> <span class="ident">TextureHandle</span>
     <span class="kw">where</span>
         <span class="ident">N</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     {
@@ -335,7 +269,7 @@
         )
     }
 
-    <span class="kw">fn</span> <span class="ident">load_font</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">world</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">World</span>) <span class="op">-&gt;</span> <span class="ident">FontHandle</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_font</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">world</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">World</span>) <span class="op">-&gt;</span> <span class="ident">FontHandle</span> {
         <span class="ident">world</span>.<span class="ident">read_resource</span>::<span class="op">&lt;</span><span class="ident">Loader</span><span class="op">&gt;</span>().<span class="ident">load</span>(
             <span class="string">&quot;font/meslo.ttf&quot;</span>,
             <span class="ident">TtfFormat</span>,
@@ -345,23 +279,18 @@
         )
     }
 
-    <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">font_size</span>() <span class="op">-&gt;</span> <span class="ident">f32</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">font_size</span>() <span class="op">-&gt;</span> <span class="ident">f32</span> {
         <span class="number">14.</span>
     }
 }
 
-<span class="kw">impl</span> <span class="ident">SimpleState</span> <span class="kw">for</span> <span class="ident">BarState</span> {
+<span class="kw">impl</span> <span class="ident">SimpleState</span> <span class="kw">for</span> <span class="ident">State</span> {
     <span class="kw">fn</span> <span class="ident">on_start</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">data</span>: <span class="ident">StateData</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">GameData</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="lifetime">&#39;_</span><span class="op">&gt;&gt;</span>) {
         <span class="kw">let</span> <span class="ident">world</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">world</span>;
 
-        <span class="comment">// Add the I3 connection to the world</span>
-        <span class="ident">world</span>.<span class="ident">add_resource</span>(<span class="ident">I3Connection</span>::<span class="ident">connect</span>());
-
-        <span class="comment">// Initialize the workspace component</span>
-        <span class="self">self</span>.<span class="ident">init_workspace_buttons</span>(<span class="ident">world</span>);
-
         <span class="comment">// Initialize further components</span>
-        <span class="self">self</span>.<span class="ident">init_date_text</span>(<span class="ident">world</span>);
+        <span class="self">self</span>.<span class="ident">init_date_segment</span>(<span class="ident">world</span>);
+        <span class="self">self</span>.<span class="ident">init_cpu_segment</span>(<span class="ident">world</span>);
 
         <span class="comment">// Initialize the camera</span>
         <span class="self">self</span>.<span class="ident">init_camera</span>(<span class="ident">world</span>);
@@ -382,12 +311,9 @@
                     <span class="ident">Trans</span>::<span class="prelude-val">None</span>
                 }
             }
-            <span class="ident">StateEvent</span>::<span class="ident">Ui</span>(<span class="ident">ui_event</span>) <span class="op">=&gt;</span> {
-                <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;Got UI event: {:?}&quot;</span>, <span class="ident">ui_event</span>);
-                <span class="ident">Trans</span>::<span class="prelude-val">None</span>
-            }
+            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="ident">Trans</span>::<span class="prelude-val">None</span>,
         }
     }
 }
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g., <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g., <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g., <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "unibar";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "unibar";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script src="../../source-files.js"></script><script src="../../source-script.js"></script><script defer src="../../search-index.js"></script></body></html>
