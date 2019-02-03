@@ -1,23 +1,23 @@
 //! Bar definitions and functions
 
-use crate::{bundle::BarBundle, color::ColorScheme, state::BarState};
+use crate::{bundle::Bundle, color::ColorScheme, state::State};
 use amethyst::{
     assets::Processor,
     audio::Source,
     core::{frame_limiter::FrameRateLimitStrategy, transform::TransformBundle},
     input::InputBundle,
-    prelude::*,
+    prelude::{Application, GameDataBuilder},
     renderer::{
         ColorMask, DisplayConfig, DrawFlat2D, Pipeline, RenderBundle, Stage,
         ALPHA,
     },
     ui::{DrawUi, UiBundle},
     utils::{application_root_dir, fps_counter::FPSCounterBundle},
+    winit::{dpi::LogicalSize, WindowBuilder},
     LoggerConfig, StdoutLog,
 };
 use failure::{err_msg, Fallible};
 use log::{debug, LevelFilter};
-use std::path::PathBuf;
 
 /// The root bar structure
 pub struct Bar;
@@ -29,12 +29,18 @@ impl Bar {
         Self::setup_logging(level_filter);
         debug!("Logger setup done");
 
-        // Setup the application data
-        let app_root = PathBuf::from(application_root_dir());
-        let resources = app_root.join("assets");
-        let display_config_path = resources.join("display.ron");
-
-        let config = DisplayConfig::load(&display_config_path);
+        // Build the window
+        let window_builder = WindowBuilder::new()
+            .with_title("unibar")
+            .with_resizable(false)
+            .with_decorations(false)
+            .with_transparency(true)
+            .with_always_on_top(true)
+            .with_window_icon(None)
+            .with_dimensions(LogicalSize::new(1000., 20.));
+        let mut display_config = DisplayConfig::from(window_builder);
+        display_config.multisampling = 0;
+        display_config.vsync = true;
 
         let pipe = Pipeline::build().with_stage(
             Stage::with_backbuffer()
@@ -57,11 +63,11 @@ impl Bar {
         );
 
         let app_data = GameDataBuilder::default()
-            .with_bundle(BarBundle)
-            .map_err(|_| err_msg("Unable to load BarBundle"))?
+            .with_bundle(Bundle)
+            .map_err(|_| err_msg("Unable to load Bundle"))?
             .with_bundle(
                 TransformBundle::new()
-                    .with_dep(&["workspace_system", "status_system"]),
+                    .with_dep(&["workspace_system", "segment_system"]),
             )
             .map_err(|_| err_msg("Unable to load TransformBundle"))?
             .with_bundle(UiBundle::<String, String>::new())
@@ -72,18 +78,19 @@ impl Bar {
             .with_bundle(InputBundle::<String, String>::new())
             .map_err(|_| err_msg("Unable to load InputBundle"))?
             .with_bundle(
-                RenderBundle::new(pipe, Some(config))
+                RenderBundle::new(pipe, Some(display_config))
                     .with_sprite_sheet_processor(),
             )
             .map_err(|_| err_msg("Unable to load RenderBundle"))?;
         debug!("Application data setup done");
 
         // Create and start the applicaiton
-        let mut app = Application::build(resources, BarState)
-            .map_err(|_| err_msg("Unable to create application builder"))?
-            .with_frame_limit(FrameRateLimitStrategy::Unlimited, 9999)
-            .build(app_data)
-            .map_err(|_| err_msg("Unable to create application"))?;
+        let mut app =
+            Application::build(application_root_dir()?.join("assets"), State)
+                .map_err(|_| err_msg("Unable to create application builder"))?
+                .with_frame_limit(FrameRateLimitStrategy::Sleep, 30)
+                .build(app_data)
+                .map_err(|_| err_msg("Unable to create application"))?;
 
         debug!("Initialization done, starting app");
         app.run();

@@ -1,6 +1,6 @@
 //! All available systems
 
-mod status;
+mod segment;
 mod workspace;
 
-pub use self::{status::StatusSystem, workspace::WorkspaceSystem};
+pub use self::{segment::SegmentSystem, workspace::WorkspaceSystem};

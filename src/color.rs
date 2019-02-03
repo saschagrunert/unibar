@@ -4,12 +4,12 @@ pub struct ColorScheme;
 
 #[allow(dead_code)]
 impl ColorScheme {
-    pub const fn background() -> [f32; 4] {
-        [0.156, 0.164, 0.211, 1.]
+    pub const fn black() -> [f32; 4] {
+        [0.05, 0.05, 0.05, 1.]
     }
 
-    pub const fn comment() -> [f32; 4] {
-        [0.384, 0.447, 0.643, 1.]
+    pub const fn background() -> [f32; 4] {
+        [0.156, 0.164, 0.211, 1.]
     }
 
     pub const fn cyan() -> [f32; 4] {
@@ -41,7 +41,7 @@ impl ColorScheme {
     }
 
     pub const fn selection() -> [f32; 4] {
-        [0.266, 0.278, 0.352, 1.]
+        [0.384, 0.447, 0.643, 1.]
     }
 
     pub const fn yellow() -> [f32; 4] {

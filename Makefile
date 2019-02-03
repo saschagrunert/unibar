@@ -3,11 +3,11 @@ GENERAL_ARGS = --all
 
 .PHONY: \
 	bench \
-	build-doc \
 	build \
+	build-doc \
 	coverage \
-	lint-rustfmt \
 	lint-clippy \
+	lint-rustfmt \
 	run \
 	test
 
@@ -32,7 +32,9 @@ coverage:
 	cargo kcov
 
 lint-clippy:
-	cargo clippy $(GENERAL_ARGS) -- -D warnings
+	cargo clippy $(GENERAL_ARGS) -- \
+		-D warnings \
+		-A clippy::type-complexity
 
 lint-rustfmt:
 	cargo fmt

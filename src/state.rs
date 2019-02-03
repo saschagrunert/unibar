@@ -1,98 +1,74 @@
 //! Global state handling for the bar
 
-use crate::color::ColorScheme;
+use crate::{
+    color::ColorScheme,
+    segment::{Cpu, Date, Segment},
+};
 use amethyst::{
     assets::{AssetStorage, Loader},
     core::Transform,
     ecs::World,
     input::{is_close_requested, is_key_down},
-    prelude::*,
+    prelude::{
+        Builder, GameData, SimpleState, SimpleTrans, StateData, StateEvent,
+        Trans,
+    },
     renderer::{
         Camera, PngFormat, Projection, Texture, TextureHandle, TextureMetadata,
     },
-    ui::{
-        Anchor, FontHandle, TtfFormat, UiButtonBuilder, UiImage, UiText,
-        UiTransform,
-    },
+    ui::{Anchor, FontHandle, TtfFormat, UiButtonBuilder, UiTransform},
     winit::VirtualKeyCode,
 };
-use i3ipc::I3Connection;
-use log::warn;
 
 /// The state representation of the bar
-pub struct BarState;
+pub struct State;
 
-impl BarState {
-    fn init_workspace_buttons(&self, world: &mut World) {
-        let workspaces = ["1", "2", "3", "4", "5"];
-
-        // Load the images
-        let image = self.load_texture("images/background.png", world);
-        let hover_image = self.load_texture("images/selection.png", world);
-        let press_image = self.load_texture("images/foreground.png", world);
-
-        // Load the font
-        let font = self.load_font(world);
-
-        // Create the buttons
-        for (index, workspace) in workspaces.iter().enumerate() {
-            let button = UiButtonBuilder::new(
-                format!("ws_button_{}", workspace),
-                workspace,
-            )
-            .with_anchor(Anchor::TopLeft)
-            .with_font(font.clone())
-            .with_font_size(Self::font_size())
-            .with_hover_image(hover_image.clone())
-            .with_hover_text_color(ColorScheme::foreground())
-            .with_image(image.clone())
-            .with_position((20 * index + 10) as f32, -10.)
-            .with_press_image(press_image.clone())
-            .with_press_text_color(ColorScheme::background())
-            .with_size(20., 20.)
-            .with_text_color(ColorScheme::foreground())
-            .build_from_world(world);
-
-            // Add the entity to the world
-            world.add_resource(button);
-        }
-    }
-
-    fn init_date_text(&self, world: &mut World) {
-        // Load the font
-        let font = self.load_font(world);
-
-        // Build the transform
-        let transform = UiTransform::new(
-            "date_time_text".to_string(),
-            Anchor::TopRight,
-            -100.,
-            -10.,
-            1.,
-            200.,
-            20.,
-            0,
-        );
-
-        // Create the text entity
-        let mut text = UiText::new(
-            font,
-            "".to_owned(),
-            ColorScheme::foreground(),
-            Self::font_size(),
-        );
-        text.align = Anchor::MiddleRight;
-
-        // Add the entity to the world
-        world.create_entity().with(transform).with(text).build();
+impl State {
+    fn init_date_segment(&self, world: &mut World) {
+        // Create a new date object and add it to the world
+        let date = Date::new();
+        self.init_button_segment(world, &date, -100, 190);
+        world.add_resource(date);
 
         // Add a separator
-        self.add_separator(world, -200.);
+        self.add_separator(world, -205.);
+    }
+
+    fn init_cpu_segment(&self, world: &mut World) {
+        // Create a new cpu object and add it to the world
+        let cpu = Cpu::new();
+        self.init_button_segment(world, &cpu, -265, 100);
+        world.add_resource(cpu);
+
+        // Add a separator
+        self.add_separator(world, -325.);
+    }
+
+    fn init_button_segment<T>(
+        &self,
+        world: &mut World,
+        segment: &T,
+        x: i16,
+        width: u16,
+    ) where
+        T: Segment,
+    {
+        let builder: UiButtonBuilder<u8> =
+            UiButtonBuilder::new(segment.id(), "");
+        builder
+            .with_anchor(Anchor::TopRight)
+            .with_font(self.load_font(world))
+            .with_font_size(Self::font_size())
+            .with_image(self.load_texture("images/background.png", world))
+            .with_position(f32::from(x), -10.)
+            .with_size(f32::from(width), 20.)
+            .with_text_color(ColorScheme::foreground())
+            .build_from_world(world);
     }
 
     fn add_separator(&self, world: &mut World, x: f32) {
         // Load the image
-        let image = self.load_texture("images/purple.png", world);
+        let image = self.load_texture("images/separator.png", world);
 
         // Build the transform
         let transform = UiTransform::new(
@@ -101,17 +77,12 @@ impl BarState {
             x,
             -10.,
             1.,
+            10.,
             20.,
-            20.,
-            0,
         );
 
         // Add the entity to the world
-        world
-            .create_entity()
-            .with(transform)
-            .with(UiImage { texture: image })
-            .build();
+        world.create_entity().with(transform).with(image).build();
     }
 
     fn init_camera(&self, world: &mut World) {
@@ -124,7 +95,7 @@ impl BarState {
             .build();
     }
 
-    fn load_texture<N>(&self, name: N, world: &World) -> TextureHandle
+    pub fn load_texture<N>(&self, name: N, world: &World) -> TextureHandle
     where
         N: Into<String>,
     {
@@ -139,7 +110,7 @@ impl BarState {
         )
     }
 
-    fn load_font(&self, world: &mut World) -> FontHandle {
+    pub fn load_font(&self, world: &mut World) -> FontHandle {
         world.read_resource::<Loader>().load(
             "font/meslo.ttf",
             TtfFormat,
@@ -149,23 +120,18 @@ impl BarState {
         )
     }
 
-    const fn font_size() -> f32 {
+    pub const fn font_size() -> f32 {
         14.
     }
 }
 
-impl SimpleState for BarState {
+impl SimpleState for State {
     fn on_start(&mut self, data: StateData<'_, GameData<'_, '_>>) {
         let world = data.world;
 
-        // Add the I3 connection to the world
-        world.add_resource(I3Connection::connect());
-
-        // Initialize the workspace component
-        self.init_workspace_buttons(world);
-
         // Initialize further components
-        self.init_date_text(world);
+        self.init_date_segment(world);
+        self.init_cpu_segment(world);
 
         // Initialize the camera
         self.init_camera(world);
@@ -186,10 +152,7 @@ impl SimpleState for BarState {
                     Trans::None
                 }
             }
-            StateEvent::Ui(ui_event) => {
-                warn!("Got UI event: {:?}", ui_event);
-                Trans::None
-            }
+            _ => Trans::None,
         }
     }
 }
