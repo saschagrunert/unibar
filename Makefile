@@ -50,5 +50,6 @@ deploy:
 	docker run --rm -it -v $(PWD):/home/rust/src \
 		ekidd/rust-musl-builder:latest \
 		cargo build --release $(GENERAL_ARGS)
+	sudo chown -R $(USER) $(PWD)
 	docker build --no-cache -t unibar .
 	docker save unibar -o unibar.tar
