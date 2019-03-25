@@ -20,7 +20,7 @@ i3ipc = "0.10.1"
 log = "0.4.6"
 serde = "1.0.89"
 serde_derive = "1.0.89"
-uuid = { version = "0.7.2", features = ["v4"] }
+uuid = { version = "0.7.3", features = ["v4"] }
 
 [[bin]]
 name = "unibar"
