@@ -52,7 +52,7 @@ dependencies = [
  "amethyst_utils 0.5.0 (git+https://github.com/amethyst/amethyst)",
  "crossbeam-channel 0.3.8 (registry+https://github.com/rust-lang/crates.io-index)",
  "derivative 1.0.2 (registry+https://github.com/rust-lang/crates.io-index)",
- "fern 0.5.7 (registry+https://github.com/rust-lang/crates.io-index)",
+ "fern 0.5.8 (registry+https://github.com/rust-lang/crates.io-index)",
  "log 0.4.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "rayon 1.0.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "rustc_version_runtime 0.1.5 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -998,7 +998,7 @@ dependencies = [
 
 [[package]]
 name = "fern"
-version = "0.5.7"
+version = "0.5.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "colored 1.7.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -3004,7 +3004,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum expat-sys 2.1.6 (registry+https://github.com/rust-lang/crates.io-index)" = "658f19728920138342f68408b7cf7644d90d4784353d8ebc32e7e8663dbe45fa"
 "checksum failure 0.1.5 (registry+https://github.com/rust-lang/crates.io-index)" = "795bd83d3abeb9220f257e597aa0080a508b27533824adf336529648f6abf7e2"
 "checksum failure_derive 0.1.5 (registry+https://github.com/rust-lang/crates.io-index)" = "ea1063915fd7ef4309e222a5a07cf9c319fb9c7836b1f89b85458672dbb127e1"
-"checksum fern 0.5.7 (registry+https://github.com/rust-lang/crates.io-index)" = "b48af88aaf938b11baef948a5599e66e709cf92854aa2b87c71f1bcf20f80a01"
+"checksum fern 0.5.8 (registry+https://github.com/rust-lang/crates.io-index)" = "29d26fa0f4d433d1956746e66ec10d6bf4d6c8b93cd39965cceea7f7cc78c7dd"
 "checksum float-ord 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)" = "7bad48618fdb549078c333a7a8528acb57af271d0433bdecd523eb620628364e"
 "checksum fluent 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)" = "e1631ec9bea0d8755abbb22ef570496bb2293bf5da0e357b740ae75c45e179fe"
 "checksum fluent-locale 0.4.1 (registry+https://github.com/rust-lang/crates.io-index)" = "4a54a80f8d4153a0390516480b155b8495408f00a4eebd386ed4d7b4532c7e01"
