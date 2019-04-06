@@ -14,7 +14,7 @@ version = "0.1.0"
 [dependencies]
 amethyst = { git = "https://github.com/amethyst/amethyst" }
 chrono = "0.4.6"
-clap = { version = "2.32.0", features = ["yaml"] }
+clap = { version = "2.33.0", features = ["yaml"] }
 failure = "0.1.5"
 i3ipc = "0.10.1"
 log = "0.4.6"
