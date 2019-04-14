@@ -98,7 +98,7 @@ dependencies = [
  "rayon 1.0.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "ron 0.4.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde 1.0.90 (registry+https://github.com/rust-lang/crates.io-index)",
- "shred 0.7.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "shred 0.7.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "shred-derive 0.5.1 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -154,7 +154,7 @@ dependencies = [
  "nalgebra 0.17.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "rayon 1.0.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde 1.0.90 (registry+https://github.com/rust-lang/crates.io-index)",
- "shred 0.7.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "shred 0.7.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "shrev 1.0.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "specs 0.14.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "specs-hierarchy 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -217,7 +217,7 @@ dependencies = [
  "laminar 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "log 0.4.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde 1.0.90 (registry+https://github.com/rust-lang/crates.io-index)",
- "shred 0.7.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "shred 0.7.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "shrev 1.0.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "uuid 0.7.4 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -248,7 +248,7 @@ dependencies = [
  "rayon 1.0.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "ron 0.4.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde 1.0.90 (registry+https://github.com/rust-lang/crates.io-index)",
- "shred 0.7.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "shred 0.7.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "shred-derive 0.5.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "smallvec 0.6.9 (registry+https://github.com/rust-lang/crates.io-index)",
  "wavefront_obj 5.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -278,7 +278,7 @@ dependencies = [
  "log 0.4.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "ron 0.4.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde 1.0.90 (registry+https://github.com/rust-lang/crates.io-index)",
- "shred 0.7.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "shred 0.7.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "shred-derive 0.5.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "smallvec 0.6.9 (registry+https://github.com/rust-lang/crates.io-index)",
  "unicode-normalization 0.1.8 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -299,7 +299,7 @@ dependencies = [
  "amethyst_renderer 0.10.1 (git+https://github.com/amethyst/amethyst)",
  "log 0.4.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde 1.0.90 (registry+https://github.com/rust-lang/crates.io-index)",
- "shred 0.7.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "shred 0.7.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "shred-derive 0.5.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "specs-hierarchy 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -2391,7 +2391,7 @@ dependencies = [
 
 [[package]]
 name = "shred"
-version = "0.7.1"
+version = "0.7.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "arrayvec 0.4.10 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -2473,7 +2473,7 @@ dependencies = [
  "mopa 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "nonzero_signed 1.0.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "rayon 1.0.3 (registry+https://github.com/rust-lang/crates.io-index)",
- "shred 0.7.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "shred 0.7.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "shred-derive 0.5.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "shrev 1.0.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "tuple_utils 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -2485,7 +2485,7 @@ version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "hibitset 0.5.4 (registry+https://github.com/rust-lang/crates.io-index)",
- "shred 0.7.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "shred 0.7.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "shred-derive 0.5.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "shrev 1.0.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "specs 0.14.3 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -3152,7 +3152,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum servo-fontconfig-sys 4.0.7 (registry+https://github.com/rust-lang/crates.io-index)" = "b46d201addcfbd25c1798ad1281d98c40743824e0b0f1e611bd3d5d0d31a7b8d"
 "checksum servo-freetype-sys 4.0.5 (registry+https://github.com/rust-lang/crates.io-index)" = "2c4ccb6d0d32d277d3ef7dea86203d8210945eb7a45fba89dd445b3595dd0dfc"
 "checksum shared_library 0.1.9 (registry+https://github.com/rust-lang/crates.io-index)" = "5a9e7e0f2bfae24d8a5b5a66c5b257a83c7412304311512a0c054cd5e619da11"
-"checksum shred 0.7.1 (registry+https://github.com/rust-lang/crates.io-index)" = "8c75ec29e8d2959ad96a1087fe4cadb926c6fc17cbae9812314fa8efe720aa2a"
+"checksum shred 0.7.2 (registry+https://github.com/rust-lang/crates.io-index)" = "6ea122e6133568144fcfb5888737d4ac776ebc959f989dd65b907136ac22bfed"
 "checksum shred-derive 0.5.1 (registry+https://github.com/rust-lang/crates.io-index)" = "9fcf34e5e5302d3024aba7afc291f6d1ca7573ed035d3c0796976ba3f10691a1"
 "checksum shrev 1.0.1 (registry+https://github.com/rust-lang/crates.io-index)" = "ec60ed6f60a4b3cdc2ceacf57215db3408fbd8990f66a38686a31558cd9da482"
 "checksum siphasher 0.2.3 (registry+https://github.com/rust-lang/crates.io-index)" = "0b8de496cf83d4ed58b6be86c3a275b8602f6ffe98d3024a869e124147a9a3ac"
